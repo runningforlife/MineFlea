@@ -26,6 +26,8 @@ public class HomeActivity extends BaseActivity {
     public static int DRIVE_ACTIVITY_CODE = 0;
     public static int WALK_ACTIVITY_CODE = 1;
 
+    public static final int REQUEST_PUBLISH = 0x221;
+
     public LatLng myLoc = null;
 
     /**
@@ -114,7 +116,7 @@ public class HomeActivity extends BaseActivity {
 
         if(NetConnectionUtils.isNetworkConnected()) {
             Intent intent = new Intent(this, PublishGoodsActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent,REQUEST_PUBLISH);
         }else{
             showToast(getString(R.string.hint_no_network_connection));
         }
@@ -124,6 +126,6 @@ public class HomeActivity extends BaseActivity {
     public void onActivityResult(int request,int result, Intent data){
         super.onActivityResult(request,result,data);
 
-        Log.v(TAG,"onActivityResult(): request = " + request);
+        Log.v(TAG,"onActivityResult(): result = " + result);
     }
 }

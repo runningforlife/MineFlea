@@ -11,6 +11,7 @@ import com.github.xzwj87.mineflea.market.ui.EditPersonalInfoView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -37,6 +38,8 @@ public class EditPersonalInfoPresenterImpl implements EditPersonalInfoPresenter{
         mRepo.registerCallBack(PRESENTER_EDIT,new EditPresenterListener());
 
         mCurrent = mRepo.getCurrentUser();
+
+        initView();
     }
 
     @Override
@@ -53,7 +56,6 @@ public class EditPersonalInfoPresenterImpl implements EditPersonalInfoPresenter{
     @Override
     public void setView(BaseView view) {
         mView = (EditPersonalInfoView)view;
-        initView();
     }
 
     @Override
@@ -66,10 +68,9 @@ public class EditPersonalInfoPresenterImpl implements EditPersonalInfoPresenter{
     @Override
     public void setHeadIcon(String iconUrl) {
         mCurrent.setHeadIconUrl(iconUrl);
-        ArrayList<String> list = (ArrayList<String>) Arrays.asList(iconUrl);
-        mRepo.uploadImages(list,false);
+        //mView.updateHeadIcon(iconUrl);
+        mRepo.uploadImages(Arrays.asList(iconUrl),false);
         //mRepo.uploadImage(iconUrl,false);
-        mView.updateHeadIcon(iconUrl);
     }
 
     // Todo: request to verify email
@@ -132,8 +133,9 @@ public class EditPersonalInfoPresenterImpl implements EditPersonalInfoPresenter{
             switch (what) {
                 case ResponseCode.RESP_IMAGE_UPLOAD_SUCCESS:
                     if (message.obj != null) {
-                        String url = (String) message.obj;
-                        mRepo.updateCurrentUserInfo(UserInfo.USER_HEAD_ICON, url);
+                        @SuppressWarnings("unchecked")
+                        List<String> url = (ArrayList) message.obj;
+                        mRepo.updateCurrentUserInfo(UserInfo.USER_HEAD_ICON, url.get(0));
                     }
                     break;
                 default:

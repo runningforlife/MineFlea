@@ -12,6 +12,7 @@ import com.github.xzwj87.mineflea.market.model.PublishGoodsInfo;
 import com.github.xzwj87.mineflea.market.model.UserInfo;
 import com.github.xzwj87.mineflea.market.ui.BaseView;
 import com.github.xzwj87.mineflea.market.ui.DiscoverGoodsView;
+import com.github.xzwj87.mineflea.utils.UserPrefsUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -152,6 +153,12 @@ public class DiscoverGoodsPresenterImpl implements DiscoverGoodsPresenter{
                     break;
                 case ResponseCode.RESP_GET_USER_INFO_ERROR:
                     break;
+                // ok,here we want to update URL
+                case ResponseCode.RESP_IMAGE_UPLOAD_SUCCESS:
+                    List<String> imgList = (ArrayList<String>)message.obj;
+                    String latestGoodsId = UserPrefsUtil.getString(PublishGoodsInfo.GOODS_ID,"");
+                    mRepo.updateGoodsInfo(latestGoodsId,
+                            PublishGoodsInfo.GOODS_IMAGES,imgList);
                 default:
                     break;
             }

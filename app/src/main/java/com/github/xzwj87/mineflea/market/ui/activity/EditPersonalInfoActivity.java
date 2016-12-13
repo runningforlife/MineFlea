@@ -89,11 +89,7 @@ public class EditPersonalInfoActivity extends BaseActivity
         getComponent().inject(this);
 
         ThemeColorUtils.changeThemeColor(this);
-    }
 
-    @Override
-    public void onStart(){
-        super.onStart();
 
         init();
     }
@@ -122,6 +118,8 @@ public class EditPersonalInfoActivity extends BaseActivity
                         mPresenter.setHeadIcon(sCameraImgPath);
                         PicassoUtils.loadImage(this,mCivHeadIcon,sCameraImgPath);
                     }
+                    break;
+                default:
                     break;
             }
         }
@@ -316,7 +314,7 @@ public class EditPersonalInfoActivity extends BaseActivity
     }
 
     private void init(){
-        mPresenter.init();
         mPresenter.setView(this);
+        mPresenter.init();
     }
 }

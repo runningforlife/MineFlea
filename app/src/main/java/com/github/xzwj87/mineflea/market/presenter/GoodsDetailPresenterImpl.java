@@ -53,7 +53,7 @@ public class GoodsDetailPresenterImpl implements GoodsDetailPresenter{
         if(mGoods != null){
             mGoods.addFavorUser(mRepo.getCurrentUserId());
             mRepo.addToMyFavorites(mGoods);
-            mView.updateLikes(String.valueOf(mGoods.getStars()+1));
+            mView.updateLikes(String.valueOf(mGoods.getStars()));
         }
     }
 

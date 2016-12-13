@@ -9,6 +9,7 @@ import com.github.xzwj87.mineflea.market.internal.di.PerActivity;
 import com.github.xzwj87.mineflea.market.model.UserInfo;
 import com.github.xzwj87.mineflea.market.ui.BaseView;
 import com.github.xzwj87.mineflea.market.ui.LoginView;
+import com.github.xzwj87.mineflea.utils.NetConnectionUtils;
 import com.github.xzwj87.mineflea.utils.UserInfoUtils;
 import com.github.xzwj87.mineflea.utils.UserPrefsUtil;
 
@@ -35,12 +36,16 @@ public class LoginPresenterImpl implements LoginPresenter{
 
     @Override
     public void login() {
-        if(mIsEmail) {
-            mDataRepo.login(mUserInfo);
+        if(NetConnectionUtils.isNetworkConnected()) {
+            if (mIsEmail) {
+                mDataRepo.login(mUserInfo);
+            } else {
+                mDataRepo.loginBySms(mUserInfo.getUserTelNumber(), mUserInfo.getUserPwd());
+            }
+            mView.showProgress(true);
         }else{
-            mDataRepo.loginBySms(mUserInfo.getUserTelNumber(),mUserInfo.getUserPwd());
+            mView.showNoNetConnectionMsg();
         }
-        mView.showProgress(true);
     }
 
     @Override

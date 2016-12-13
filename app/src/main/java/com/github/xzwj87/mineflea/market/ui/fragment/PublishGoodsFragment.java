@@ -25,10 +25,12 @@ import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps2d.model.LatLng;
 import com.github.xzwj87.mineflea.R;
 import com.github.xzwj87.mineflea.market.internal.di.component.MarketComponent;
+import com.github.xzwj87.mineflea.market.model.PublishGoodsInfo;
 import com.github.xzwj87.mineflea.market.presenter.PublishGoodsPresenterImpl;
 import com.github.xzwj87.mineflea.market.ui.PublishGoodsView;
 import com.github.xzwj87.mineflea.market.ui.activity.HomeActivity;
 import com.github.xzwj87.mineflea.market.ui.adapter.PublishGoodsImageAdapter;
+import com.github.xzwj87.mineflea.utils.PicassoUtils;
 import com.github.xzwj87.mineflea.utils.UserPrefsUtil;
 
 import java.util.ArrayList;
@@ -48,7 +50,7 @@ public class PublishGoodsFragment extends BaseFragment
     public static final String TAG = PublishGoodsFragment.class.getSimpleName();
 
     private static final int IMG_COL_NUMBER = 3;
-    private static final int MAX_NUM_PICTURES = 5;
+    private static final int MAX_NUM_PICTURES = 3;
 
     @BindView(R.id.et_note) EditText mEtNote;
     @BindView(R.id.rv_goods_image) RecyclerView mRvGoodsImg;
@@ -171,7 +173,15 @@ public class PublishGoodsFragment extends BaseFragment
             if (!success) {
                 showToast(getString(R.string.publish_goods_error));
             } else {
+                Intent data = new Intent();
+                data.putExtra(PublishGoodsInfo.GOODS_ID,mPresenter.getGoodsId());
+                getActivity().setResult(Activity.RESULT_OK,data);
+
+                UserPrefsUtil.setStringPref(PublishGoodsInfo.GOODS_ID,mPresenter.getGoodsId());
+
                 showToast(getString(R.string.publish_goods_success));
+
+                finishView();
             }
 
             if(mProcessBar.isShowing()){
@@ -335,9 +345,7 @@ public class PublishGoodsFragment extends BaseFragment
                         addImgToView();
                     }
                 }
-
                 break;
-
             default:
                 break;
         }

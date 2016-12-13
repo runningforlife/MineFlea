@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +26,10 @@ import com.github.xzwj87.mineflea.market.model.PublishGoodsInfo;
 import com.github.xzwj87.mineflea.market.presenter.DiscoverGoodsPresenterImpl;
 import com.github.xzwj87.mineflea.market.ui.DiscoverGoodsView;
 import com.github.xzwj87.mineflea.market.ui.activity.GoodsDetailActivity;
+import com.github.xzwj87.mineflea.market.ui.activity.HomeActivity;
+import com.github.xzwj87.mineflea.market.ui.activity.PublishGoodsActivity;
 import com.github.xzwj87.mineflea.market.ui.adapter.DiscoverGoodsAdapter;
+import com.github.xzwj87.mineflea.utils.NetConnectionUtils;
 import com.github.xzwj87.mineflea.utils.SharePrefsHelper;
 import com.github.xzwj87.mineflea.utils.UserPrefsUtil;
 
@@ -32,6 +37,9 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static android.app.Activity.RESULT_OK;
+import static com.github.xzwj87.mineflea.market.ui.activity.HomeActivity.REQUEST_PUBLISH;
 
 /**
  * Created by jason on 10/9/16.
@@ -107,6 +115,29 @@ public class DiscoverTabFragment extends BaseFragment
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        inflater.inflate(R.menu.menu_mine_flea, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        switch (id){
+            case R.id.action_publish:
+                startPublishActivity();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo info){
         super.onCreateContextMenu(menu,v,info);
     }
@@ -115,6 +146,12 @@ public class DiscoverTabFragment extends BaseFragment
     public boolean onContextItemSelected(MenuItem item){
 
         return super.onContextItemSelected(item);
+    }
+
+    @Override
+    public void onActivityResult(int request,int result, Intent data){
+        Log.v(TAG,"onActivityResult(): result = " + result);
+
     }
 
     private void init() {
@@ -131,7 +168,6 @@ public class DiscoverTabFragment extends BaseFragment
         if(loc != null) {
             mRvAdapter.setCurrentLoc(loc);
         }
-
 
         mPresenter.setView(this);
         mPresenter.init();
@@ -242,5 +278,19 @@ public class DiscoverTabFragment extends BaseFragment
         });
 
         mLocClient.startLocation();
+    }
+
+    private void startPublishActivity(){
+        if(!UserPrefsUtil.isLogin()){
+            showToast(getString(R.string.need_to_login));
+            return;
+        }
+
+        if(NetConnectionUtils.isNetworkConnected()) {
+            Intent intent = new Intent(getContext(), PublishGoodsActivity.class);
+            startActivityForResult(intent,REQUEST_PUBLISH);
+        }else{
+            showToast(getString(R.string.hint_no_network_connection));
+        }
     }
 }

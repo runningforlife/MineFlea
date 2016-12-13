@@ -162,7 +162,7 @@ public class DataRepository implements BaseRepository,RemoteSourceCallBack{
         mCloudSrc.updateCurrentUserInfo(key,val);
 
         if(mCache.isCached(getCurrentUserId(),FileCache.CACHE_TYPE_USER)){
-            mCache.updateFile(getCurrentUser());
+            mCache.updateFile(mCloudSrc.getCurrentUser());
         }
     }
 

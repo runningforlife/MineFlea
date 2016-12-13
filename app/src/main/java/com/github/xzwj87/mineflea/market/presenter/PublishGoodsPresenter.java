@@ -29,4 +29,6 @@ interface PublishGoodsPresenter extends BasePresenter{
     boolean validGoodsInfo();
 
     String getCurrentUserId();
+
+    String getGoodsId();
 }

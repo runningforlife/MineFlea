@@ -118,14 +118,16 @@ public class RegisterFragment extends BaseFragment{
                 return true;
             case R.id.next_step:
                 String authCode = mEtInputAuthCode.getText().toString();
+                String telNumber = mEtTelNumber.getText().toString();
                 mPresenter.get().setSmsAuthCode(authCode);
                 if(!TextUtils.isEmpty(authCode)){
                     mPresenter.get().signUpBySms();
-                }else {
+                    nextStep();
+                }else if(TextUtils.isEmpty(telNumber)){
+                    mEtTelNumber.setError(getString(R.string.error_field_required));
+                }else{
                     mEtInputAuthCode.setError(getString(R.string.error_invalid_auth_code));
                 }
-
-                nextStep();
 
                 if(mDownTimer != null) {
                     mDownTimer.onFinish();

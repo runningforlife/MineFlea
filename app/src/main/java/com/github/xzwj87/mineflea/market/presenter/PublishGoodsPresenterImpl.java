@@ -32,7 +32,7 @@ import javax.inject.Inject;
 public class PublishGoodsPresenterImpl implements PublishGoodsPresenter{
     public static final String TAG = PublishGoodsPresenterImpl.class.getSimpleName();
 
-    private static final long DEFAULT_TIMEOUT = 30*1000;
+    private static final long DEFAULT_TIMEOUT = 60*1000;
 
     @Inject
     DataRepository mRepository;
@@ -158,6 +158,11 @@ public class PublishGoodsPresenterImpl implements PublishGoodsPresenter{
     }
 
     @Override
+    public String getGoodsId() {
+        return mGoodsInfo.getId();
+    }
+
+    @Override
     public void onPause() {
 
     }
@@ -186,7 +191,7 @@ public class PublishGoodsPresenterImpl implements PublishGoodsPresenter{
                         public void run() {
                             if(mView != null) {
                                 mView.onPublishComplete(true);
-                                mView.finishView();
+                                //mView.finishView();
                             }
                         }
                     },DEFAULT_TIMEOUT);

@@ -139,7 +139,6 @@ public class RegisterSecondStepFragment extends BaseFragment{
     }
 
 
-
     private class RegisterViewImpl extends RegisterView {
 
         public void onRegisterComplete(boolean success){
