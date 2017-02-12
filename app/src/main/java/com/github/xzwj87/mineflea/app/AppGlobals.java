@@ -15,7 +15,7 @@ import com.github.xzwj87.mineflea.market.internal.di.component.DaggerAppComponen
 import com.github.xzwj87.mineflea.market.internal.di.module.AppModule;
 import com.github.xzwj87.mineflea.utils.UserPrefsUtil;
 
-import java.io.File;
+import java.lang.ref.WeakReference;
 
 /**
  * Created by JasonWang on 2016/9/19.
@@ -25,7 +25,8 @@ public class AppGlobals extends Application
 
     private static final String TAG = AppGlobals.class.getSimpleName();
 
-    private static Context sContext;
+    private static AppGlobals sInstance = new AppGlobals();
+    private static WeakReference<Context> sContext;
     private static final String LEAN_CLOUD_APP_ID = "4OaElXuRPCVDqxMLyXIRk4Ai-gzGzoHsz";
     private static final String LEAN_CLOUD_APP_KEY = "gEtmxOIxF0LrCT0jJaHSL9uU";
 
@@ -44,7 +45,7 @@ public class AppGlobals extends Application
         mainThreadId = android.os.Process.myTid();
         handler = new Handler();
 
-        sContext = getApplicationContext();
+        sContext = new WeakReference<Context>(getApplicationContext());
 
         mAppComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
@@ -61,6 +62,9 @@ public class AppGlobals extends Application
             }
         },500);
 
+        // init crash handler
+        CrashHandler handler = CrashHandler.getInstance();
+        handler.init(this);
     }
 
     private void initMap() {
@@ -71,12 +75,13 @@ public class AppGlobals extends Application
         }
     }
 
-    public AppGlobals(){
-        super();
+    public static AppGlobals getInstance(){
+        return sInstance;
     }
 
+    //Todo: do not use this to get application context,use getInstance instead
     public static Context getAppContext(){
-        return sContext;
+        return sContext.get();
     }
 
     @Override
