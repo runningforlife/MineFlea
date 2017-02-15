@@ -35,7 +35,7 @@ android {
     }
 
     // leanCloud:为了解决部分第三方库重复打包了META-INF的问题
-    packagingOptions{
+    packagingOptions {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
     }
@@ -43,8 +43,8 @@ android {
         abortOnError false
     }
     // Amap
-    sourceSets{
-        main{
+    sourceSets {
+        main {
             jniLibs.srcDirs = ['libs']
         }
     }
@@ -76,12 +76,11 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    androidTestCompile 'com.android.support.test:runner:0.5'
-    androidTestCompile 'com.android.support.test:rules:0.5'
-    androidTestCompile 'com.android.support:support-annotations:24.2.1'
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
 
+    //leanCloud - basic
+    // chat/msg push
+    compile('cn.leancloud.android:avoscloud-push:v3.+@aar') { transitive = true }
+    //3rd party login
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:design:24.2.1'
     compile 'io.reactivex:rxandroid:1.2.1'
@@ -89,14 +88,8 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.jakewharton:butterknife:8.2.1'
-    apt 'com.jakewharton:butterknife-compiler:8.2.1'
     compile 'com.google.dagger:dagger:2.7'
-    apt 'com.google.dagger:dagger-compiler:2.7'
-    //leanCloud - basic
     compile 'cn.leancloud.android:avoscloud-sdk:v3.+'
-    // chat/msg push
-    compile('cn.leancloud.android:avoscloud-push:v3.+@aar') { transitive = true }
-    //3rd party login
     compile 'cn.leancloud.android:avoscloud-sns:v3.+@aar'
     compile 'cn.leancloud.android:qq-sdk:1.6.1-leancloud'
     compile 'com.makeramen:roundedimageview:2.2.1'
@@ -108,6 +101,13 @@ dependencies {
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.daimajia.numberprogressbar:library:1.2@aar'
-
     compile 'com.romandanylyk:pageindicatorview:0.0.7'
+    compile 'com.android.support:support-v4:24.2.1'
+    testCompile 'junit:junit:4.12'
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'com.android.support.test:rules:0.5'
+    androidTestCompile 'com.android.support:support-annotations:24.2.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
+    apt 'com.jakewharton:butterknife-compiler:8.2.1'
+    apt 'com.google.dagger:dagger-compiler:2.7'
 }

@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Process;
 import android.util.Log;
 
 import com.avos.avoscloud.AVFile;
@@ -12,7 +13,6 @@ import com.avos.avoscloud.AVFile;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -52,13 +52,21 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
     @Override
     public void uncaughtException(Thread t, Throwable e) {
-        // here we want to upload crash infomation to server or save it on disk
+        // here we want to upload crash information to server or save it on disk
         try {
             dumpCrashInfoToDisk(e);
             uploadCrashInfoToServer(e);
         }catch (IOException ex){
             ex.printStackTrace();
             Log.v(TAG,"fail to dump crash info to disk/server");
+        }
+
+        e.printStackTrace();
+
+        if(mDefaultExceptionHandler != null){
+            mDefaultExceptionHandler.uncaughtException(t,e);
+        }else{
+            Process.killProcess(Process.myPid());
         }
     }
 

@@ -2,28 +2,26 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.github.xzwj87.mineflea">
 
-    <!--地图包、搜索包需要的基础权限-->
-    <!--允许程序打开网络套接字-->
+    <!-- 地图包、搜索包需要的基础权限 -->
+    <!-- 允许程序打开网络套接字 -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <!--允许程序设置内置sd卡的写权限-->
+    <!-- 允许程序设置内置sd卡的写权限 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!--允许程序获取网络状态-->
+    <!-- 允许程序获取网络状态 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!--允许程序访问WiFi网络信息-->
+    <!-- 允许程序访问WiFi网络信息 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <!--允许程序读写手机状态和身份-->
+    <!-- 允许程序读写手机状态和身份 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!--允许程序访问CellID或WiFi热点来获取粗略的位置-->
+    <!-- 允许程序访问CellID或WiFi热点来获取粗略的位置 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
@@ -36,10 +34,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
 
-        <!--高德地图 key -->
-        <meta-data android:name="com.amap.api.v2.apikey" android:value="92cb62e3c6763aa14bd8d74bfc7afc33">
-        </meta-data>
-
+        <!-- 高德地图 key -->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="92cb62e3c6763aa14bd8d74bfc7afc33"></meta-data>
         // for real-time chat and message pushing service
         <service android:name="com.avos.avoscloud.PushService" />
 
@@ -57,7 +55,17 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
 
+        <activity
+            android:name=".market.ui.activity.WelcomeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_welcome"
+            android:theme="@style/FullscreenTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -65,59 +73,58 @@
         <activity
             android:name=".market.ui.activity.PublishGoodsActivity"
             android:label=""
+            android:launchMode="singleTask"
             android:parentActivityName=".market.ui.activity.HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
             android:name=".market.ui.activity.LoginActivity"
             android:label="@string/title_activity_login"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme"/>
 
-        <activity android:name=".market.ui.activity.RegisterActivity"
+        <activity
+            android:name=".market.ui.activity.RegisterActivity"
             android:label=""
             android:parentActivityName=".market.ui.activity.LoginActivity"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme"/>
 
-        <activity android:name=".market.ui.activity.GoodsDetailActivity"
+        <activity
+            android:name=".market.ui.activity.GoodsDetailActivity"
             android:label=""
             android:parentActivityName=".market.ui.activity.HomeActivity"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme"/>
 
-        <activity android:name=".market.ui.activity.UserDetailActivity"
+        <activity
+            android:name=".market.ui.activity.UserDetailActivity"
             android:label=""
-            android:theme="@style/AppTheme.NoActionBar"/>
-
-        <activity android:name=".market.ui.activity.EditPersonalInfoActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".market.ui.activity.EditPersonalInfoActivity"
             android:label="@string/edit_personal_info"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name=".market.ui.settings.SettingsActivity"
+        <activity
+            android:name=".market.ui.settings.SettingsActivity"
             android:label="@string/action_settings"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme"/>
 
-        <activity android:name="me.iwf.photopicker.PhotoPickerActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            />
-
-        <activity android:name="me.iwf.photopicker.PhotoPagerActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-
-        <activity android:name=".market.ui.activity.UserGoodsActivity"
+        <activity
+            android:name="me.iwf.photopicker.PhotoPickerActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name="me.iwf.photopicker.PhotoPagerActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".market.ui.activity.UserGoodsActivity"
             android:label=""
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-
-        <activity android:name=".market.ui.alimap.WalkRouteDetailActivity"></activity>
-        <activity android:name=".market.ui.alimap.DriveRouteDetailActivity"></activity>
-        <activity android:name=".market.ui.alimap.BusRouteDetailActivity"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".market.ui.alimap.WalkRouteDetailActivity" />
+        <activity android:name=".market.ui.alimap.DriveRouteDetailActivity" />
+        <activity android:name=".market.ui.alimap.BusRouteDetailActivity" />
 
         <!-- 定位需要的服务 使用2.0的定位需要加上这个 -->
-        <service android:name="com.amap.api.location.APSService"></service>
+        <service android:name="com.amap.api.location.APSService" />
+
     </application>
 
 </manifest>

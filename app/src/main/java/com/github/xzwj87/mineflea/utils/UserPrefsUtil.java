@@ -129,7 +129,7 @@ public class UserPrefsUtil {
 
     public static void setBooleanPref(Context ctx, String key, boolean flag) {
         SharedPreferences sp = ctx.getSharedPreferences(SP_CONFIG, ctx.MODE_PRIVATE);
-        sp.edit().putBoolean(key, flag).commit();
+        sp.edit().putBoolean(key, flag).apply();
     }
 
     public static boolean getBooleanPref(Context ctx, String key) {
@@ -139,7 +139,7 @@ public class UserPrefsUtil {
 
     public static void setBooleanPref(String key, boolean flag) {
         SharedPreferences sp = AppGlobals.getAppContext().getSharedPreferences(SP_CONFIG, AppGlobals.getAppContext().MODE_PRIVATE);
-        sp.edit().putBoolean(key, flag).commit();
+        sp.edit().putBoolean(key, flag).apply();
     }
 
     public static boolean getBooleanPref(String key) {
@@ -149,7 +149,7 @@ public class UserPrefsUtil {
 
     public static void setStringPref(Context ctx, String key, String value) {
         SharedPreferences sp = ctx.getSharedPreferences(SP_CONFIG, ctx.MODE_PRIVATE);
-        sp.edit().putString(key, value).commit();
+        sp.edit().putString(key, value).apply();
     }
 
     public static String getStringPref(Context ctx, String key) {
@@ -159,7 +159,7 @@ public class UserPrefsUtil {
 
     public static void setStringPref(String key, String value) {
         SharedPreferences sp = AppGlobals.getAppContext().getSharedPreferences(SP_CONFIG, AppGlobals.getAppContext().MODE_PRIVATE);
-        sp.edit().putString(key, value).commit();
+        sp.edit().putString(key, value).apply();
     }
 
     public static String getStringPref(String key) {
@@ -169,7 +169,7 @@ public class UserPrefsUtil {
 
     public static void setIntPref(Context ctx, String key, int value) {
         SharedPreferences sp = ctx.getSharedPreferences(SP_CONFIG, ctx.MODE_PRIVATE);
-        sp.edit().putInt(key, value).commit();
+        sp.edit().putInt(key, value).apply();
     }
 
     public static int getIntPref(Context ctx, String key) {
@@ -179,7 +179,7 @@ public class UserPrefsUtil {
 
     public static void setIntPref(String key, int value) {
         SharedPreferences sp = AppGlobals.getAppContext().getSharedPreferences(SP_CONFIG, AppGlobals.getAppContext().MODE_PRIVATE);
-        sp.edit().putInt(key, value).commit();
+        sp.edit().putInt(key, value).apply();
     }
 
     public static int getIntPref(String key) {
@@ -189,11 +189,11 @@ public class UserPrefsUtil {
 
     public static void removePref(Context ctx, String key) {
         SharedPreferences sp = ctx.getSharedPreferences(SP_CONFIG, ctx.MODE_PRIVATE);
-        sp.edit().remove(key).commit();
+        sp.edit().remove(key).apply();
     }
 
     public static void removePref(String key) {
         SharedPreferences sp = AppGlobals.getAppContext().getSharedPreferences(SP_CONFIG, AppGlobals.getAppContext().MODE_PRIVATE);
-        sp.edit().remove(key).commit();
+        sp.edit().remove(key).apply();
     }
 }

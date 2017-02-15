@@ -20,4 +20,6 @@
     <color name="act_background">#efefef</color>
     <color name="colorTabBackground">#EEEEEE</color>
     <color name="ColorRed">#FF0000</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>

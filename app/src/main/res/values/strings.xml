@@ -130,4 +130,8 @@
     <string name="favored_user">The Number User Favors</string>
     <string name="check_goods_detail">Take a look at the detail</string>
     <string name="no_goods_found">No Goods Found</string>
+
+    <string name="title_activity_welcome">@string/app_name</string>
+    <string name="enter_home">Enter Home</string>
+    <string name="welcome_to_mineflea">Welcome to MineFlea</string>
 </resources>
